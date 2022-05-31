@@ -1,34 +1,13 @@
-{% load static %}
-<html>
-    <head>
-        <title>Django World blog</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-        <link rel="preconnect" href="https://fonts.googleapis.com/%22%3E">
-        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans:wght@300&family=Nunito&family=Playfair+Display:ital,wght@1,500&family=Roboto:wght@500&display=swap" rel="stylesheet">
-    </head>
-    
-    <body>
-        <div class="page-header">
-            <h1><a href="#"> Cinematography blog</a></h1>
-        </div>
+{% extends 'blog/base.html' %}
 
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
-                {% for post in posts %}
-                    <div class="post">
-                        <div class="date">
-                            <p>Опубликовано: {{ post.published_date }}</p>
-                        </div>
-                        <h1><a href="">{{ post.title }}</a></h1>
-                        p>{{ post.text|linebreaksbr }}</p>
-                    </div>
-                    {% endfor %}
-                </div>
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
             </div>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
         </div>
-    </body>
-</html>
+    {% endfor %}
+{% endblock %}
